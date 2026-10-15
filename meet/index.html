@@ -3,30 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f5f0">
-  <meta name="description" content="Find a time to meet Jan Bauer. Choose a conversation, pick a time in your timezone, and get a calendar invitation.">
-  <title>Meet · Jan Bauer</title>
+  <meta name="description" content="Book a meeting with Jan Bauer. Times are shown in your time zone.">
+  <title>Book a meeting · Jan Bauer</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <script src="./config.js"></script>
   <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="https://janbauer.cc" aria-label="Jan Bauer home"><span class="monogram">jb<span>↗</span></span><span>Jan Bauer<span class="brand-caption">A little time, well spent.</span></span></a>
-    <nav><a class="home-link" href="https://janbauer.cc">Back to website <span aria-hidden="true">↗</span></a><button id="admin-open" class="text-button">Admin <span aria-hidden="true">↗</span></button></nav>
-  </header>
-  <main id="main">
-    <section class="intro"><div><p class="eyebrow"><span class="status-dot"></span> LET’S MAKE TIME</p><h1>Good conversations<br>start here<span class="green">.</span></h1><p class="intro-copy">An idea, a question, or just a hello.<br>Pick a time and let’s talk.</p></div><div class="intro-note"><span class="scribble" aria-hidden="true">↙</span><p>No back-and-forth.<br>Just a time that works for you.</p></div></section>
-    <div id="preview-note" class="preview-note" hidden><span><strong>Interactive preview</strong> · Try a booking or explore the admin workspace. No invitations or emails are sent.</span><button id="demo-admin" class="text-button">Explore admin <span aria-hidden="true">↗</span></button></div>
-    <section id="booking-shell" class="booking-shell" aria-label="Book a meeting">
-      <aside class="meeting-panel"><div class="avatar" aria-hidden="true">jb<span class="avatar-dot"></span></div><p class="eyebrow muted">A CONVERSATION WITH</p><h2>Jan Bauer</h2><p class="panel-copy">Make room for a new connection.</p><label class="field-label" id="duration-label">How much time do you need?</label><div id="duration-options" class="duration-options" role="group" aria-labelledby="duration-label"></div><div id="meeting-meta" class="meeting-meta"></div><div class="host-note"><span aria-hidden="true">✳</span><p>Your time is valuable.<br>Let’s make the most of it.</p></div></aside>
-      <div class="schedule-panel"><div class="step-heading"><span class="step-number" id="step-number">01</span><div><p class="eyebrow muted" id="step-eyebrow">FIND YOUR MOMENT</p><h2 id="step-title">Choose a date & time</h2></div><span class="step-count" id="step-count">1 of 2</span></div><div id="booking-content"></div></div>
+  <main class="wrap">
+    <header>
+      <p class="name">Jan Bauer</p>
+      <h1 id="title">Book a meeting</h1>
+    </header>
+    <section id="app" aria-live="polite">
+      <p class="muted">Loading…</p>
     </section>
-    <div class="below-booking"><p><span class="small-lock" aria-hidden="true">⌑</span> Your calendar stays yours. Only Jan’s available times are shown.</p><p>Good things start with a conversation. <span class="green">↗</span></p></div>
+    <footer>
+      <a href="https://janbauer.cc">janbauer.cc</a>
+    </footer>
   </main>
-  <footer class="site-footer"><span>© <span id="year"></span> Jan Bauer</span><span>Made for a more human internet.</span><a href="https://janbauer.cc">janbauer.cc <span aria-hidden="true">↗</span></a></footer>
-  <dialog id="admin-dialog" class="admin-dialog" aria-labelledby="admin-title"><div id="admin-content"></div></dialog>
-  <div id="toast" class="toast" role="status" hidden></div>
 </body>
 </html>
