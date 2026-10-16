@@ -23,6 +23,8 @@ export function demoSlots(settings, type, bookings, busy, ignored, now = new Dat
     const hours = settings.weekly[weekday];
     if (!hours.enabled) continue;
     const [sh, sm] = hours.start.split(':').map(Number), [eh, em] = hours.end.split(':').map(Number);
+    // Same-day times open only once the host's day has started.
+    if (i === 0 && +now < +zonedDate(year, month, day, sh, sm, settings.timezone)) continue;
     for (let minutes = sh * 60 + sm; minutes + type.duration <= eh * 60 + em; minutes += 15) {
       const start = zonedDate(calendarDate.getUTCFullYear(), calendarDate.getUTCMonth() + 1, calendarDate.getUTCDate(), Math.floor(minutes / 60), minutes % 60, settings.timezone);
       const end = start && new Date(+start + type.duration * 60000);
