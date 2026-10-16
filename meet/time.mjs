@@ -11,8 +11,8 @@ export function zonedDate(year, month, day, hour, minute, zone) {
   }
   return null; // Nonexistent wall time at a spring DST transition.
 }
-export const clock = (date, zone) => new Intl.DateTimeFormat(undefined, { timeZone: zone, hour: 'numeric', minute: '2-digit' }).format(new Date(date));
-export const longDate = (date, zone) => new Intl.DateTimeFormat('en-GB', { timeZone: zone, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(date));
+export const clock = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(date));
+export const longDate = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(date));
 export function demoSlots(settings, type, bookings, busy, ignored, now = new Date()) {
   const slots = [];
   const [year, month, day] = dateKey(now, settings.timezone).split('-').map(Number);
