@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Book a meeting with Jan Bauer. Times are shown in your time zone.">
+  <meta property="og:title" content="Book a meeting with Jan Bauer">
+  <meta property="og:description" content="Pick a time that suits you. Times are shown in your time zone.">
   <title>Book a meeting · Jan Bauer</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
@@ -13,37 +16,12 @@
 </head>
 <body>
   <main class="page">
-    <div id="preview-note" class="preview-note" hidden>
-      <span>Preview: sample times only. Nothing is booked.</span>
-      <button id="demo-admin" class="text-button" type="button" hidden>Admin</button>
-    </div>
-    <header class="top">
-      <span class="brand">Jan Bauer</span>
-      <button id="admin-open" class="text-button" type="button">Admin</button>
-    </header>
+    <p id="preview-note" class="preview-note" hidden>Preview with sample times. Nothing is booked.</p>
     <section id="booking-shell" class="card" aria-label="Book a meeting">
-      <aside class="info">
-        <p class="host">Jan Bauer</p>
-        <h1 class="info-title">Meeting</h1>
-        <p class="panel-copy muted"></p>
-        <div class="field">
-          <span class="field-label" id="duration-label">Duration</span>
-          <div id="duration-options" class="duration-options" role="group" aria-labelledby="duration-label"></div>
-        </div>
-        <div id="meeting-meta" class="meeting-meta"></div>
-      </aside>
-      <div class="content">
-        <div class="step-heading">
-          <span class="step-number" id="step-number" hidden></span>
-          <div>
-            <p class="step-eyebrow muted" id="step-eyebrow"></p>
-            <h2 id="step-title">Select a date and time</h2>
-          </div>
-          <span class="step-count muted" id="step-count"></span>
-        </div>
-        <div id="booking-content"></div>
-      </div>
+      <aside id="info" class="info"></aside>
+      <div id="booking-content" class="content"></div>
     </section>
+    <footer class="footer"><button id="admin-open" class="text-button" type="button">Admin</button></footer>
     <dialog id="admin-dialog" class="admin-dialog" aria-labelledby="admin-title">
       <div id="admin-content"></div>
     </dialog>
