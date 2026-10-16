@@ -188,3 +188,8 @@ p { margin: 0 0 10px; }
   .times-list { grid-template-columns: repeat(2, 1fr); }
   .week-row { grid-template-columns: 60px 1fr auto 1fr; }
 }
+
+/* Less-preferred slots: still bookable, shown greyed */
+.time-button.less-preferred { color: var(--muted); border-color: var(--line); }
+.time-button.less-preferred:hover { border-color: var(--muted); }
+.legend-square.less { background: var(--hover); border-color: var(--muted); }
