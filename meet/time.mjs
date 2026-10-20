@@ -12,6 +12,8 @@ export function zonedDate(year, month, day, hour, minute, zone) {
   return null; // Nonexistent wall time at a spring DST transition.
 }
 export const clock = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(date));
+// Times sooner than this after the host next sees a booking carry a might-not-see-it remark.
+export const SHORT_NOTICE = 4 * 3600000;
 export const longDate = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(date));
 // When the host next sees a booking made now: now during working hours, otherwise
 // when their next working day starts. Minimum notice counts from here.
@@ -30,7 +32,7 @@ export function noticeFrom(settings, now = new Date()) {
 export function demoSlots(settings, type, bookings, busy, ignored, now = new Date()) {
   const slots = [];
   const [year, month, day] = dateKey(now, settings.timezone).split('-').map(Number);
-  const earliest = +noticeFrom(settings, now) + settings.leadHours * 3600000;
+  const notice = +noticeFrom(settings, now), earliest = notice + settings.leadMinutes * 60000;
   const blocked = busy.filter(b => settings.calendars.includes(b.calendarId) && !ignored.includes(b.key) && b.blocking);
   for (let i = 0; i <= settings.horizonDays; i++) {
     const calendarDate = new Date(Date.UTC(year, month - 1, day + i));
@@ -47,7 +49,7 @@ export function demoSlots(settings, type, bookings, busy, ignored, now = new Dat
       const overlap = (a, b, c, d) => +a < +d && +b > +c;
       if (blocked.some(b => overlap(new Date(+start - settings.buffer * 60000), new Date(+end + settings.buffer * 60000), new Date(b.start), new Date(b.end)))) continue;
       if (bookings.some(b => b.status !== 'cancelled' && overlap(new Date(+start - settings.buffer * 60000), new Date(+end + settings.buffer * 60000), new Date(b.start), new Date(b.end)))) continue;
-      slots.push({ start: start.toISOString(), end: end.toISOString() });
+      slots.push({ start: start.toISOString(), end: end.toISOString(), shortNotice: +start < notice + SHORT_NOTICE });
     }
   }
   return slots;
