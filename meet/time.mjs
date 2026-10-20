@@ -12,7 +12,7 @@ export function zonedDate(year, month, day, hour, minute, zone) {
   return null; // Nonexistent wall time at a spring DST transition.
 }
 export const clock = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(date));
-// Times sooner than this after the host next sees a booking carry a might-not-see-it remark.
+// Times sooner than this after the host next sees a booking need the host to confirm them.
 export const SHORT_NOTICE = 4 * 3600000;
 export const longDate = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(date));
 // When the host next sees a booking made now: now during working hours, otherwise
