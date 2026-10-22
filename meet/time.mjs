@@ -12,12 +12,33 @@ export function zonedDate(year, month, day, hour, minute, zone) {
   return null; // Nonexistent wall time at a spring DST transition.
 }
 export const clock = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(date));
+// 4:30pm, as the emails write it; the page shows the 24-hour time beside it.
+export function clock12(date, zone) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', minute: '2-digit', hourCycle: 'h12' }).formatToParts(new Date(date)).map(x => [x.type, x.value]));
+  return `${p.hour}:${p.minute}${p.dayPeriod.toLowerCase()}`;
+}
+// Starts before 8am are at night for the guest and easy to book by mistake: 'the night
+// from Thursday to Friday', else ''. Twelve hours back is the day before, even across DST.
+export function nightOf(date, zone) {
+  if (+clock(date, zone).slice(0, 2) >= 8) return '';
+  const weekday = d => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long' }).format(d);
+  return `the night from ${weekday(new Date(+new Date(date) - 12 * 3600000))} to ${weekday(new Date(date))}`;
+}
 // Times sooner than this after the host next sees a booking need the host to confirm them.
 export const SHORT_NOTICE = 4 * 3600000;
 export const longDate = (date, zone) => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(date));
 // When the host next sees a booking made now: now during working hours, otherwise
-// when their next working day starts. Minimum notice counts from here.
-export function noticeFrom(settings, now = new Date()) {
+// when their next working day starts, and if they're busy then, when that ends.
+// Minimum notice counts from here. Mirrors notice_from in backend/server.py.
+export function noticeFrom(settings, now = new Date(), busy = []) {
+  let seen = dayStart(settings, now);
+  for (;;) {
+    const ends = busy.filter(b => +new Date(b.start) <= seen && seen < +new Date(b.end)).map(b => +new Date(b.end));
+    if (!ends.length) return new Date(seen);
+    seen = Math.max(...ends);
+  }
+}
+function dayStart(settings, now) {
   const [year, month, day] = dateKey(now, settings.timezone).split('-').map(Number);
   for (let i = 0; i < 8; i++) {
     const date = new Date(Date.UTC(year, month - 1, day + i));
@@ -25,15 +46,15 @@ export function noticeFrom(settings, now = new Date()) {
     if (!hours.enabled) continue;
     const at = time => zonedDate(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), ...time.split(':').map(Number), settings.timezone);
     const start = at(hours.start), end = at(hours.end);
-    if (end && +now < +end) return start && +start > +now ? start : now;
+    if (end && +now < +end) return +(start && +start > +now ? start : now);
   }
-  return now;
+  return +now;
 }
 export function demoSlots(settings, type, bookings, busy, ignored, now = new Date()) {
   const slots = [];
   const [year, month, day] = dateKey(now, settings.timezone).split('-').map(Number);
-  const notice = +noticeFrom(settings, now), earliest = notice + settings.leadMinutes * 60000;
   const blocked = busy.filter(b => settings.calendars.includes(b.calendarId) && !ignored.includes(b.key) && b.blocking);
+  const notice = +noticeFrom(settings, now, [...blocked, ...bookings.filter(b => b.status !== 'cancelled')]), earliest = notice + settings.leadMinutes * 60000;
   for (let i = 0; i <= settings.horizonDays; i++) {
     const calendarDate = new Date(Date.UTC(year, month - 1, day + i));
     const weekday = (calendarDate.getUTCDay() + 6) % 7;

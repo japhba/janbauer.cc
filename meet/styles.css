@@ -124,8 +124,13 @@ p { margin: 0 0 10px; }
 .times-inner { position: absolute; inset: 0; display: flex; flex-direction: column; }
 .times-title { display: flex; align-items: center; height: 40px; margin-bottom: 12px; font-size: 16px; font-weight: 500; }
 .hint { margin: -8px 0 12px; color: var(--muted); font-size: 13px; }
+.hint .icon { width: 14px; height: 14px; margin-right: 5px; vertical-align: -2px; }
 .time-list { flex: 1; min-height: 0; display: grid; align-content: start; gap: 8px; margin: 0 -8px 0 -2px; padding: 2px 8px 2px 2px; overflow-y: auto; }
-.time { height: 44px; border: 1px solid var(--accent-line); border-radius: 8px; background: var(--card); color: var(--accent); font-weight: 650; font-variant-numeric: tabular-nums; }
+.time { display: flex; align-items: center; justify-content: center; gap: 5px; height: 44px; border: 1px solid var(--accent-line); border-radius: 8px; background: var(--card); color: var(--accent); font-weight: 650; font-variant-numeric: tabular-nums; }
+.time .icon { width: 16px; height: 16px; }
+/* The 24-hour time beside the 12-hour one, minutes raised as on a timetable: 16³⁰. */
+.h24 { color: var(--muted); font-weight: 500; white-space: nowrap; }
+.h24 sup { font-size: 0.72em; line-height: 0; }
 .time:hover { border-color: var(--accent); background: var(--accent-soft); }
 .time.less { border-color: var(--line); color: var(--muted); font-weight: 500; }
 .time.less:hover { border-color: var(--line-strong); background: var(--hover); }
@@ -146,6 +151,8 @@ p { margin: 0 0 10px; }
 .error:empty { display: none; }
 .fine { margin: 0; color: var(--muted); font-size: 13px; }
 .short-notice { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--hover); font-size: 14px; }
+.night-notice { display: flex; gap: 8px; align-items: flex-start; }
+.night-notice .icon { width: 18px; height: 18px; margin-top: 1px; }
 .primary-button, .secondary-button, .danger-button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 20px; border-radius: 8px; font-weight: 600; text-decoration: none; }
 .primary-button { border: 0; background: var(--accent); color: var(--on-accent); }
 .primary-button:hover { filter: brightness(1.08); }
