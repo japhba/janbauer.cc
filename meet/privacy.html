@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="What Jan Bauer's booking page stores and why.">
+  <title>Privacy · Book a meeting · Jan Bauer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <article class="card prose">
+      <h1>Privacy</h1>
+      <p class="muted">Booking page at janbauer.cc/meet, run by Jan Bauer. Last updated 25 October 2026.</p>
+
+      <h2>What a booking collects</h2>
+      <p>Your name, email address and any notes you write, the time and length of the meeting, and your time zone. They are used only to arrange the meeting:</p>
+      <ul>
+        <li>an event with a Google Meet link is added to Jan’s Google Calendar with you as a guest, and Google sends you the invitation;</li>
+        <li>the page emails you about your booking (confirmation, changes, cancellation) and lets Jan know.</li>
+      </ul>
+
+      <h2>Where it is kept</h2>
+      <ul>
+        <li>The booking server, a virtual machine in Oracle Cloud in Madrid, Spain, keeps a record of each booking until Jan deletes it.</li>
+        <li>The calendar event lives in Jan’s Google Calendar; emails are sent through Gmail.</li>
+        <li>The page itself is served by GitHub Pages, which may log visitors’ IP addresses (see GitHub’s privacy statement).</li>
+      </ul>
+      <p>To stop abuse, the server counts requests per visitor using a one-way hash of the IP address, kept for at most two hours. It keeps no access logs of booking requests. There are no analytics, ads or tracking cookies.</p>
+
+      <h2>Jan’s calendar</h2>
+      <p>With Jan’s permission, the server reads his own calendars to find free times and creates or updates only the events for bookings made here. Visitors see free times only, never Jan’s event titles or other guests.</p>
+
+      <h2>Your choices</h2>
+      <p>You can cancel with the link in your confirmation email. To see, correct or delete what is stored about you, write to <a href="mailto:japhba@gmail.com">japhba@gmail.com</a>. If you’re unhappy with the answer, you can complain to the UK Information Commissioner’s Office.</p>
+
+      <p><a href="./">Back to booking</a></p>
+    </article>
+  </main>
+</body>
+</html>
