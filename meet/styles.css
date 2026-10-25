@@ -138,7 +138,7 @@ a.text-button { text-decoration: none; }
 .time .icon { width: 16px; height: 16px; }
 /* The 24-hour time beside the 12-hour one, minutes raised as on a timetable: 16³⁰. */
 .h24 { color: var(--muted); font-weight: 500; white-space: nowrap; }
-.h24 sup { font-size: 0.72em; line-height: 0; }
+.h24 sup { font-size: 0.8em; line-height: 0; vertical-align: 0.3em; }
 .time:hover { border-color: var(--accent); background: var(--accent-soft); }
 .time.less { border-color: var(--line); color: var(--muted); font-weight: 500; }
 .time.less:hover { border-color: var(--line-strong); background: var(--hover); }
